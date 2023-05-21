@@ -2,25 +2,20 @@ from flask import Flask, request
 from bs4 import BeautifulSoup
 import requests
 import openai
+import nltk
+import os
+nltk.download('punkt')
 from nltk.tokenize import word_tokenize
+from flask_cors import CORS
 
 app = Flask(__name__)
-
-@app.route('/scrape', methods=['POST'])
-def scrape_url():
-    data = request.get_json()
-    url = data['url']
-
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    text = soup.get_text()
-
-    return {'content': text}
+CORS(app)
 
 @app.route('/generate', methods=['POST'])
 def generate_content():
     data = request.get_json()
     link = data['link']
+    type_content = data['option']
 
     # Scrape content
     response = requests.get(link)
@@ -33,11 +28,12 @@ def generate_content():
     input_text = ' '.join(tokens)
 
     # Generate text with OpenAI
+    openai.api_key = "OPENAI_API_KEY"
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": input_text},
+            {"role": "user", "content": "Give me " + type_content + " similar to " + input_text},
         ]
     )
 
