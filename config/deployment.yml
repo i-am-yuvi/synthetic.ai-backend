@@ -18,6 +18,9 @@ spec:
           image: <IMAGE>
           ports:
             - containerPort: 5000
+          env:
+            - name: OPENAI_API_KEY
+              value: $OPENAI_API_KEY
 ---
 apiVersion: v1
 kind: Service
