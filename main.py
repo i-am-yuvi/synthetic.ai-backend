@@ -12,7 +12,6 @@ app = Flask(__name__)
 CORS(app)
 CORS(app)
 
-
 @app.route('/generate', methods=['POST'])
 def generate_content():
     data = request.get_json()
