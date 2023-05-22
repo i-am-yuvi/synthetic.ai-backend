@@ -6,6 +6,7 @@ on:
       - 'main.py'
       - 'Dockerfile'
       - '.github/workflows/**'
+      - 'config/**'
 jobs:
   build:
     runs-on: ubuntu-latest
