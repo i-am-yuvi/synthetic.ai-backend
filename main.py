@@ -4,10 +4,8 @@ from bs4 import BeautifulSoup
 import requests
 import openai
 import nltk
-import os
 nltk.download('punkt')
 from nltk.tokenize import word_tokenize
-from flask_cors import CORS
 from flask_cors import CORS
 
 app = Flask(__name__)
