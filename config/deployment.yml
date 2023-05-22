@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: syntheticai
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: synthetic-backend
+  template:
+    metadata:
+      labels:
+        app: synthetic-backend
+    spec:
+      containers:
+        - name: synthetic-backend
+          image: <IMAGE>
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: syntheticai
+spec:
+  selector:
+    app: synthetic-backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
