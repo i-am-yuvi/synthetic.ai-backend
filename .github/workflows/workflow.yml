@@ -26,7 +26,7 @@ jobs:
         run: doctl registry login --expiry-seconds 1200
 
       - name: Push image to DigitalOcean Container Registry
-        run: docker push registry.digitalocean.com/${{ secrets.REGISTRY_NAME }}/synthetic-backend:$(echo $GITHUB_SHA | head -c7)
+        run: docker push ${{ secrets.REGISTRY_NAME }}/synthetic-backend:$(echo $GITHUB_SHA | head -c7)
 
       - name: Update deployment file
         run: |
