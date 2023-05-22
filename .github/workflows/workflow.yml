@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@main
 
       - name: Build container image
-        run: docker build -t synthetic-backend:$(echo $GITHUB_SHA | head -c7) .
+        run: docker build -t ${{secrets.DOCKERHUB_USERNAME}}/synthetic-backend:$(echo $GITHUB_SHA | head -c7) .
 
       - name: Log in to Docker Hub
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
