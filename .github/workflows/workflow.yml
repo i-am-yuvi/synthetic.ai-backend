@@ -21,7 +21,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Push image to Docker Hub
-        run: docker push synthetic-backend:$(echo $GITHUB_SHA | head -c7)
+        run: docker push ${{secrets.DOCKERHUB_USERNAME}}/synthetic-backend:$(echo $GITHUB_SHA | head -c7)
 
       - name: Update deployment file
         run: |
