@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [mastre, development]
+    branches: [master, development]
     paths:
       - 'requirements.txt'
       - 'main.py'
