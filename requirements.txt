@@ -1,0 +1,6 @@
+flask
+beautifulsoup4
+requests
+openai
+nltk
+flask_cors
