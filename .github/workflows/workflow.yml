@@ -16,7 +16,12 @@ jobs:
 
       - name: Build container image
         run: docker build -t ${{secrets.DOCKERHUB_USERNAME}}/synthetic-backend:$(echo $GITHUB_SHA | head -c7) .
-
+        
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          
       - name: Log in to Docker Hub
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
@@ -26,7 +31,7 @@ jobs:
       - name: Update deployment file
         run: |
           TAG=$(echo $GITHUB_SHA | head -c7)
-          sed -i "s|<IMAGE>|synthetic-backend:${TAG}|" $GITHUB_WORKSPACE/config/deployment.yml
+          sed -i "s|<IMAGE>|${{secrets.DOCKERHUB_USERNAME}}/synthetic-backend:${TAG}|" $GITHUB_WORKSPACE/config/deployment.yml
           sed -i "s|<OPENAI_API_KEY>|${{ secrets.OPENAI_API_KEY }}|" $GITHUB_WORKSPACE/config/deployment.yml
 
       - name: Save DigitalOcean kubeconfig with short-lived credentials
