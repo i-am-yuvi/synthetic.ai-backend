@@ -3,16 +3,22 @@ from flask import Flask, request
 from bs4 import BeautifulSoup
 import requests
 import openai
+import nltk
+import os
+nltk.download('punkt')
 from nltk.tokenize import word_tokenize
+from flask_cors import CORS
 from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 CORS(app)
 
 @app.route('/generate', methods=['POST'])
 def generate_content():
     data = request.get_json()
     link = data['link']
+    type_content = data['option']
 
     # Scrape content
     response = requests.get(link)
@@ -31,7 +37,7 @@ def generate_content():
         model="text-davinci-003",
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": "generate a blog outline " + input_text},
+            {"role": "user", "content": input_text},
         ]
     )
 
