@@ -31,7 +31,6 @@ def generate_content():
         tokens = tokens[:1500]
     input_text = ' '.join(tokens)
 
-
     # Generate text with OpenAI
     openai.api_key = os.getenv("OPENAI_API_KEY")
     response = openai.ChatCompletion.create(
