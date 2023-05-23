@@ -8,6 +8,7 @@ nltk.download('punkt')
 from nltk.tokenize import word_tokenize
 from flask_cors import CORS
 
+
 app = Flask(__name__)
 app.run(
     host="localhost",
